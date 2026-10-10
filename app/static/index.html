@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>DGX Spark Chat</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="brand">
+      <span id="statusDot" class="dot" data-state="offline"></span>
+      <span class="title">DGX Spark Chat</span>
+      <span id="statusText" class="muted">กำลังเชื่อมต่อ…</span>
+    </div>
+    <div class="bar-actions">
+      <span id="latency" class="latency" hidden></span>
+      <button id="resetBtn" class="ghost" type="button" title="เริ่มบทสนทนาใหม่">ล้างแชท</button>
+      <button id="facesBtn" class="ghost" type="button" aria-expanded="false" aria-controls="facesPanel">ใบหน้า</button>
+    </div>
+  </header>
+
+  <div id="notice" class="notice" hidden></div>
+
+  <main class="layout">
+    <section id="log" class="log" aria-live="polite">
+      <div class="empty" id="empty">
+        <p>กด <strong>เริ่มคุย</strong> แล้วพูดได้เลย ไม่ต้องกดค้าง</p>
+        <p class="muted">เปิดกล้องเพื่อให้ผู้ช่วยมองเห็นและจำหน้าได้ ลองพูดว่า “จำหน้าฉันไว้ ชื่อ …”</p>
+      </div>
+    </section>
+
+    <aside id="facesPanel" class="panel" hidden>
+      <h2>ใบหน้าที่จำไว้</h2>
+      <form id="enrollForm" class="row">
+        <input id="enrollName" type="text" maxlength="40" placeholder="ชื่อ" autocomplete="off" required>
+        <button type="submit">จำหน้านี้</button>
+      </form>
+      <p class="muted small">ต้องเปิดกล้องก่อน ระบบเก็บเฉพาะค่าตัวเลขของใบหน้า ไม่เก็บรูป</p>
+      <ul id="faceList" class="faces"></ul>
+      <p id="seen" class="muted small"></p>
+    </aside>
+  </main>
+
+  <div class="camera" id="cameraBox" hidden>
+    <video id="video" playsinline muted></video>
+  </div>
+
+  <footer class="controls">
+    <div class="row toggles">
+      <label class="toggle"><input id="camToggle" type="checkbox"> กล้อง</label>
+      <button id="flipBtn" class="ghost small" type="button" hidden>สลับกล้อง</button>
+      <label class="toggle" title="พูดแทรกตอนผู้ช่วยกำลังพูดได้ (แนะนำให้ใช้หูฟัง)"><input id="bargeToggle" type="checkbox"> พูดแทรกได้</label>
+      <label class="toggle">เสียง
+        <select id="voiceSelect"></select>
+      </label>
+    </div>
+    <div class="row main-row">
+      <button id="callBtn" class="call" type="button" disabled>เริ่มคุย</button>
+      <button id="stopBtn" class="ghost" type="button" hidden>หยุดพูด</button>
+      <form id="textForm" class="row grow">
+        <input id="textInput" type="text" placeholder="หรือพิมพ์ข้อความ…" autocomplete="off" enterkeyhint="send">
+        <button type="submit" class="ghost">ส่ง</button>
+      </form>
+    </div>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
